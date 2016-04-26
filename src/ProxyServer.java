@@ -4,9 +4,9 @@ import java.net.*;
 public class ProxyServer {
 	public static void main(String[] args) throws IOException {
 	    try {
-	      String host = "seu Servidor Proxy ";
-	      int remoteport = 100;
-	      int localport = 111;
+	      String host = "192.168.1.10";
+	      int remoteport = 8080;
+	      int localport = 9999;
 	      // Imprimir mensagem inicial
 	      System.out.println("Iniciando proxy para " + host + ":" + remoteport
 	          + " on port " + localport);
@@ -86,14 +86,19 @@ public class ProxyServer {
 		              } catch (IOException e) {
 		              }
 		        	  
-		        	  
-		        	  
-		        	  
-		        	  
-		        	  
-		        	  
-		        	  
-		        	  
-		          }
-
+		           // O servidor fechou sua conexão conosco, vamos fechar nossa conexão com o cliente
+		              streamToClient.close();
+		            } catch (IOException e) {
+		              System.err.println(e);
+		            } finally {
+		              try {
+		                if (server != null)
+		                  server.close();
+		                if (client != null)
+		                  client.close();
+		              } catch (IOException e) {
+		              }
+		            }
+		    }
+	 }		        	   
 }
